@@ -11,13 +11,13 @@ W, H = 3840, 2087
 
 # label, source, portrait height, x-centre, portrait bottom, label y
 PEOPLE = [
-    ("Warren Buffett", "buffett.webp", 1040, 300, 1390, 1295),
-    ("Benjamin Graham", "bgraham.webp", 1130, 800, 1370, 1160),
-    ("Charlie Munger", "munger.webp", 1190, 1320, 1360, 1080),
-    ("Peter Lynch", "lynch.webp", 1240, 1920, 1350, 1050),
-    ("Howard Marks", "marks.webp", 1190, 2520, 1360, 1080),
-    ("Ray Dalio", "dalio.webp", 1130, 3040, 1370, 1160),
-    ("Aswath Damodaran", "damodaran.webp", 1040, 3540, 1390, 1295),
+    ("Warren Buffett", "buffett.webp", 1040, 300, 1390, 1125),
+    ("Benjamin Graham", "bgraham.webp", 1130, 800, 1370, 995),
+    ("Charlie Munger", "munger.webp", 1190, 1320, 1360, 925),
+    ("Peter Lynch", "lynch.webp", 1240, 1920, 1350, 905),
+    ("Howard Marks", "marks.webp", 1190, 2520, 1360, 925),
+    ("Ray Dalio", "dalio.webp", 1130, 3040, 1370, 995),
+    ("Aswath Damodaran", "damodaran.webp", 1040, 3540, 1390, 1125),
 ]
 FONT_DIR = Path("/usr/share/fonts/truetype/dejavu")
 
@@ -86,8 +86,8 @@ def main():
     draw = ImageDraw.Draw(canvas)
 
     # Subtle globe mark behind the title.
-    cx, cy = 1920, 1250
-    globe = (91, 118, 149, 35)
+    cx, cy = 1920, 1390
+    globe = (91, 118, 149, 20)
     draw.ellipse((cx-180, cy-180, cx+180, cy+180), outline=globe, width=20)
     draw.ellipse((cx-76, cy-180, cx+76, cy+180), outline=globe, width=16)
     draw.arc((cx-180, cy-180, cx+180, cy+180), 0, 180, fill=globe, width=15)
@@ -111,27 +111,27 @@ def main():
         centered(draw, tag_cx, top_y+23, label, tag_font, (20, 34, 54, 255))
 
     draw = ImageDraw.Draw(canvas)
-    draw.ellipse((1657, 1110, 1681, 1134), fill=(0, 136, 205, 255))
-    centered(draw, 1932, 1092, "THE ROOM IS OPEN", get_font(38, True), (99, 120, 145, 255))
+    draw.ellipse((1657, 1208, 1681, 1232), fill=(0, 136, 205, 255))
+    centered(draw, 1932, 1190, "THE ROOM IS OPEN", get_font(38, True), (99, 120, 145, 255))
 
     # Headline with a blue product-name accent.
     title_font = get_font(112, True)
     first, accent = "Bring a decision to the ", "Roast Room"
     b1, b2 = draw.textbbox((0, 0), first, font=title_font), draw.textbbox((0, 0), accent, font=title_font)
     x = (W - ((b1[2]-b1[0]) + (b2[2]-b2[0]))) / 2
-    draw.text((x, 1220), first, font=title_font, fill=(16, 27, 44, 255))
-    draw.text((x + b1[2]-b1[0], 1220), accent, font=title_font, fill=(19, 102, 177, 255))
+    draw.text((x, 1305), first, font=title_font, fill=(16, 27, 44, 255))
+    draw.text((x + b1[2]-b1[0], 1305), accent, font=title_font, fill=(19, 102, 177, 255))
 
-    centered(draw, 1920, 1400, "In Claude Code, type the line below with your decision. The",
+    centered(draw, 1920, 1468, "In Claude Code, type the line below with your decision. The",
              get_font(54), (74, 93, 116, 255))
-    centered(draw, 1920, 1472, "council shows up here and argues it out live.",
+    centered(draw, 1920, 1535, "council shows up here and argues it out live.",
              get_font(54), (74, 93, 116, 255))
 
     cmd = "/roast-room should I ..."
     cmd_font = get_font(43, True)
     cmd_box = draw.textbbox((0, 0), cmd, font=cmd_font)
     cmd_w, cmd_h = cmd_box[2] - cmd_box[0] + 100, 108
-    cmd_x, cmd_y = round((W-cmd_w)/2), 1575
+    cmd_x, cmd_y = round((W-cmd_w)/2), 1640
     draw.rounded_rectangle((cmd_x+3, cmd_y+7, cmd_x+cmd_w+3, cmd_y+cmd_h+7), radius=30, fill=(65, 84, 105, 28))
     draw.rounded_rectangle((cmd_x, cmd_y, cmd_x+cmd_w, cmd_y+cmd_h), radius=30,
                            fill=(250, 252, 255, 252), outline=(193, 207, 223, 255), width=4)
@@ -139,7 +139,7 @@ def main():
 
     button_font = get_font(35, True)
     for label, left in [("What to put in your question", 1010), ("Watch a past council", 1990)]:
-        width, y = 840, 1760
+        width, y = 840, 1825
         draw.rounded_rectangle((left, y, left+width, y+112), radius=56,
                                fill=(235, 241, 248, 245), outline=(184, 199, 216, 255), width=4)
         centered(draw, left+width/2, y+35, label, button_font, (61, 79, 101, 255))
