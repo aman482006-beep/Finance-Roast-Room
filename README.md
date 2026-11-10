@@ -1,6 +1,6 @@
 # Finance Roast Room
 
-![Finance Roast Room — 4K room preview](docs/room.svg)
+![Finance Roast Room — 4K room preview](docs/room.png)
 
 **An AI-powered investment debate room.** Bring a decision about investing, trading, valuation or capital allocation. A council of simulated finance thinkers tests the assumptions, argues opposing cases and produces a weighted verdict with a downloadable PDF report.
 

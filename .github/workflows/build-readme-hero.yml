@@ -1,0 +1,52 @@
+name: Build self-contained 4K README hero
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/public/avatars/*.webp"
+      - "scripts/build-readme-hero.py"
+      - ".github/workflows/build-readme-hero.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: readme-hero-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check Pillow
+
+      - name: Compose actual advisor portraits into a single 4K image
+        run: python scripts/build-readme-hero.py
+
+      - name: Commit generated README image
+        run: |
+          git add docs/room.png
+          if git diff --cached --quiet; then
+            echo "README hero is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Build self-contained 4K README hero"
+          git push
