@@ -41,7 +41,7 @@ jobs:
 
       - name: Commit generated README image
         run: |
-          git add docs/room.png
+          git add docs/room.jpg docs/room.png
           if git diff --cached --quiet; then
             echo "README hero is already current."
             exit 0

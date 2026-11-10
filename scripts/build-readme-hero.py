@@ -6,7 +6,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 AVATARS = ROOT / "app" / "public" / "avatars"
-OUT = ROOT / "docs" / "room.png"
+OUT = ROOT / "docs" / "room.jpg"
 W, H = 3840, 2087
 
 # label, source, portrait height, x-centre, portrait bottom, label y
@@ -146,7 +146,10 @@ def main():
 
     draw.rounded_rectangle((10, 10, W-10, H-10), radius=26, outline=(230, 236, 243, 220), width=6)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    canvas.convert("RGB").save(OUT, format="PNG", optimize=True, dpi=(300, 300))
+    canvas.convert("RGB").save(OUT, format="JPEG", quality=94, subsampling=0, optimize=True, progressive=True, dpi=(300, 300))
+    old_png = ROOT / "docs" / "room.png"
+    if old_png.exists():
+        old_png.unlink()
     print(f"Created {OUT}: {W}x{H}, {OUT.stat().st_size:,} bytes")
 
 if __name__ == "__main__":
