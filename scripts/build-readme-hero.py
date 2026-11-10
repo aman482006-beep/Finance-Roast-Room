@@ -148,8 +148,9 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     final_image = canvas.convert("RGB")
     final_image.save(OUT, format="JPEG", quality=94, subsampling=0, optimize=True, progressive=True, dpi=(300, 300))
-    preview = final_image.resize((960, 522), Image.Resampling.LANCZOS)
-    preview.save(ROOT / "docs" / "room-preview.jpg", format="JPEG", quality=88, optimize=True, progressive=True)
+    old_preview = ROOT / "docs" / "room-preview.jpg"
+    if old_preview.exists():
+        old_preview.unlink()
     old_png = ROOT / "docs" / "room.png"
     if old_png.exists():
         old_png.unlink()
