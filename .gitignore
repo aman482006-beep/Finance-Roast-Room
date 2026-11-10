@@ -1,0 +1,39 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+build/
+coverage/
+*.tsbuildinfo
+
+# Local databases, logs and caches
+*.duckdb
+*.sqlite
+*.sqlite3
+*.db
+*.log
+.cache/
+
+# Editor, agent runtime and machine-specific files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.mcp.json
+.cursor/
+.claude/settings.local.json
+.claude/settings.json
+.claude/launch.json
+
+# Personal session output: keep only the checked-in sample councils
+sessions/*
+!sessions/.gitkeep
+!sessions/2026-10-09-example-take-the-seed/
+!sessions/2026-10-09-example-take-the-seed/**
+!sessions/2026-10-10-example-first-sales-hire/
+!sessions/2026-10-10-example-first-sales-hire/**
+!sessions/2026-10-10-example-raise-coaching-price/
+!sessions/2026-10-10-example-raise-coaching-price/**

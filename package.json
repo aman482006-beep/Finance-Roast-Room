@@ -1,0 +1,12 @@
+{
+  "name": "finance-roast-room",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Finance Roast Room: twenty elite finance advisors (Warren Buffett, Benjamin Graham, Charlie Munger, Radhakishan Damani, Rakesh Jhunjhunwala, Raamdeo Agrawal, Vijay Kedia, Sanjay Bakshi, Parag Parikh, Mohnish Pabrai, Peter Lynch, Howard Marks, George Soros, Ray Dalio, Aswath Damodaran, Stanley Druckenmiller, Paul Tudor Jones, Mark Minervini, William O'Neil, Jesse Livermore) debate your investment, trading, valuation, and capital allocation decisions.",
+  "type": "module",
+  "scripts": {
+    "start": "node app/server.mjs",
+    "smoke": "node app/scripts/smoke.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
