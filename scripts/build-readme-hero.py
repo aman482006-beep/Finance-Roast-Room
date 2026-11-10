@@ -146,7 +146,10 @@ def main():
 
     draw.rounded_rectangle((10, 10, W-10, H-10), radius=26, outline=(230, 236, 243, 220), width=6)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    canvas.convert("RGB").save(OUT, format="JPEG", quality=94, subsampling=0, optimize=True, progressive=True, dpi=(300, 300))
+    final_image = canvas.convert("RGB")
+    final_image.save(OUT, format="JPEG", quality=94, subsampling=0, optimize=True, progressive=True, dpi=(300, 300))
+    preview = final_image.resize((960, 522), Image.Resampling.LANCZOS)
+    preview.save(ROOT / "docs" / "room-preview.jpg", format="JPEG", quality=88, optimize=True, progressive=True)
     old_png = ROOT / "docs" / "room.png"
     if old_png.exists():
         old_png.unlink()
