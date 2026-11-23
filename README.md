@@ -120,3 +120,7 @@ npm run smoke
 All advisor personas are educational simulations based on publicly available work. They are not the actual people, do not speak for them, and do not provide individualized financial advice. Verify current data independently; investing and trading involve risk of loss.
 
 The project is MIT licensed. See [LICENSE](LICENSE). The PDF builder includes jsPDF (MIT) and Montserrat (SIL Open Font License).
+
+## Off Campus
+
+Off Campus verification code: `2J5E9A`
