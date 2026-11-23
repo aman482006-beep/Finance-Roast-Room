@@ -6,6 +6,7 @@ import { loadRoster, BOARD } from "./lib/seats.mjs";
 import { startCouncil, getSession, subscribe, listSaved, loadSaved, MODELS } from "./lib/council.mjs";
 import { usage } from "./lib/anthropic.mjs";
 import * as watch from "./lib/watch.mjs";
+import { resolveStaticPath } from "./lib/static-path.mjs";
 
 const PORT = Number(process.env.PORT) || 4730;
 const PUBLIC = path.join(APP_ROOT, "public");
@@ -80,14 +81,16 @@ const server = http.createServer(async (req, res) => {
       return j ? send(res, 200, j) : send(res, 404, { error: "not found" });
     }
     // static
-    let file = path.normalize(path.join(PUBLIC, p === "/" ? "index.html" : p));
-    if (!fs.existsSync(file)) {
-      const rootFile = path.normalize(path.join(APP_ROOT, "..", "public", p));
-      if (fs.existsSync(rootFile) && !fs.statSync(rootFile).isDirectory()) {
+    let file = resolveStaticPath(PUBLIC, p);
+    if (!file || !fs.existsSync(file)) {
+      const rootFile = resolveStaticPath(path.join(APP_ROOT, "..", "public"), p);
+      if (rootFile && fs.existsSync(rootFile) && !fs.statSync(rootFile).isDirectory()) {
         file = rootFile;
       }
     }
-    if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res, 404, "Not found", "text/plain");
+    if (!file || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+      return send(res, 404, "Not found", "text/plain");
+    }
     res.writeHead(200, { "content-type": TYPES[path.extname(file)] || "application/octet-stream", "cache-control": "no-store" });
     fs.createReadStream(file).pipe(res);
   } catch (e) {
